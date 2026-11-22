@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Behind the Badge: Exploring NYPD Civilian Complaint Outcomes</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">DSC 209R Final Project · Prototype</p>
+    <h1>Behind the Badge</h1>
+    <p class="subtitle">Exploring NYPD Civilian Complaint Outcomes</p>
+    <p class="team">Jiamin Wu · Justin Chanthabandith · Matthew Takeuchi · Kristen Oleson</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p>
+        Every year, thousands of New Yorkers file complaints against NYPD officers with the
+        Civilian Complaint Review Board (CCRB). But what actually happens after a complaint is filed?
+      </p>
+      <p>
+        Using ProPublica's dataset of <strong>33,358 allegations</strong> from about 12,000 complaints
+        (1985–2020), we found that only <strong>about 1 in 4</strong> allegations is substantiated.
+        Almost half are closed as <em>unsubstantiated</em>, meaning the board could not find enough
+        evidence either way. Does the outcome change with the type of complaint and the people involved?
+      </p>
+    </section>
+
+    <section class="tool" aria-labelledby="tool-title">
+      <h2 id="tool-title">Build a hypothetical complaint</h2>
+      <p class="hint">
+        Pick any combination below. Every option is optional: leave it on <em>Any</em> to include all cases.
+      </p>
+
+      <form id="filters" class="filters"></form>
+
+      <div class="results">
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-label">Similar past allegations</span>
+            <span class="stat-value" id="stat-n">–</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Median time to close</span>
+            <span class="stat-value" id="stat-months">–</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Substantiated</span>
+            <span class="stat-value" id="stat-sub">–</span>
+          </div>
+        </div>
+
+        <p id="warning" class="warning" hidden>
+          ⚠ Fewer than 30 matching allegations. Treat these percentages with caution;
+          small groups can swing a lot by chance.
+        </p>
+
+        <figure>
+          <figcaption>
+            How similar allegations were decided
+            <span class="legend">
+              <span class="legend-bar"></span> your selection
+              <span class="legend-tick"></span> all allegations
+            </span>
+          </figcaption>
+          <div id="chart"></div>
+        </figure>
+
+        <dl class="definitions">
+          <div><dt>Substantiated</dt><dd>The board found the officer committed the misconduct.</dd></div>
+          <div><dt>Exonerated</dt><dd>The officer did what was alleged, but it was found to be lawful and proper.</dd></div>
+          <div><dt>Unsubstantiated</dt><dd>There was not enough evidence to decide either way.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="writeup" aria-labelledby="writeup-title">
+      <h2 id="writeup-title">Prototype Write-up</h2>
+
+      <h3>What have we done so far?</h3>
+      <p>
+        So far, we chose ProPublica's NYPD civilian complaints dataset (about 33,000 allegations from 1985–2020)
+        and made six static charts in a Python notebook to explore it.
+        These covered misconduct types, resolution times by complainant–officer ethnicity and gender,
+        findings by officer rank, and outcomes by the reason for police contact.
+        Based on what we found, we decided on our main feature: readers build a hypothetical complaint
+        and see how similar past cases turned out.
+        We then built this first D3 version of the tool, where six dropdowns (misconduct type, reason for contact,
+        and complainant and officer ethnicity and gender) filter the data and update a bar chart of outcomes,
+        compared against all allegations.
+        The page also shows how many cases each result is based on and the median time to close, and it is
+        published on GitHub Pages.
+      </p>
+
+      <h3>What will be the most challenging part to design, and why?</h3>
+      <p>
+        The hardest design problem is small sample sizes: when readers combine several filters, the number of
+        matching cases can drop to just a few, and the percentages become misleading.
+        Right now we only show a warning below 30 cases, but we want a clearer way to show that uncertainty in the
+        chart itself without cluttering it.
+        Another challenge is wording, because outcomes like "unsubstantiated" and "exonerated" have specific meanings
+        that many readers misunderstand, so our annotations need to explain them in plain language.
+        We also still need to design the story around the tool (a hook, guided examples, and takeaways) and possibly
+        a flow chart of how a complaint moves through the system.
+        Finally, this is a sensitive topic, so we want the design to stay neutral and not suggest conclusions
+        the data can't support.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    Data: <a href="https://www.propublica.org/datastore/dataset/civilian-complaints-against-new-york-city-police-officers"
+    target="_blank">ProPublica, Civilian Complaints Against New York City Police Officers</a>
+    (CCRB records of closed allegations, 1985–2020). Each row is one allegation against one officer.
+  </footer>
+
+  <div id="tooltip" class="tooltip" hidden></div>
+</body>
+</html>
