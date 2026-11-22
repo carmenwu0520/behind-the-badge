@@ -8,6 +8,7 @@ const FILTERS = [
   { key: 'c_gender', label: 'Complainant gender' },
   { key: 'o_eth', label: 'Officer ethnicity' },
   { key: 'o_gender', label: 'Officer gender' },
+  { key: 'o_rank', label: 'Officer rank at incident' },
 ];
 
 const OUTCOMES = [

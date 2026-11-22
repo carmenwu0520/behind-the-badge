@@ -11,6 +11,7 @@ An explorable explanation of what happens after New Yorkers file complaints agai
   - `contact`: reason for contact, grouped from 53 original categories into 7
   - `c_eth`, `c_gender`: complainant ethnicity and gender
   - `o_eth`, `o_gender`: officer ethnicity and gender
+  - `o_rank`: officer rank at the time of the incident (Captain, Deputy Inspector, Inspector, and Chiefs grouped as "Captain or above")
   - `outcome`: S = substantiated (any penalty), E = exonerated, U = unsubstantiated
   - `months`: months from complaint received to closed
   - `year`: year the complaint was received
